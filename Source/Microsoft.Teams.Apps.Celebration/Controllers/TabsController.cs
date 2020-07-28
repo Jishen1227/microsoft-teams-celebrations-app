@@ -22,7 +22,7 @@ namespace Microsoft.Teams.Apps.Celebration
     /// <summary>
     /// Represents the tab action methods
     /// </summary>
-    [Authorize]
+    //[Authorize]
     public class TabsController : Controller
     {
         private readonly IEventDataProvider eventDataProvider;
