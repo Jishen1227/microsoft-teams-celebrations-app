@@ -321,6 +321,7 @@ namespace Microsoft.Teams.Apps.Celebration
         /// </summary>
         /// <param name="date"></param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        [Route("GetByDate")]
         [HttpGet]
         public async Task<ActionResult> GetByDate(DateTime date)
         {
@@ -342,7 +343,7 @@ namespace Microsoft.Teams.Apps.Celebration
                 Holidays = holidays,
                 Users = users
             };
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
     }
