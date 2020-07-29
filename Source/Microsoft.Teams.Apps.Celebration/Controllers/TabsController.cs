@@ -2,6 +2,9 @@
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
+using System.Web.Http.Results;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Microsoft.Teams.Apps.Celebration
 {
     using System;
@@ -343,7 +346,7 @@ namespace Microsoft.Teams.Apps.Celebration
                 Holidays = holidays,
                 Users = users
             };
-            return this.View(viewModel);
+            return Content(date.ToLongTimeString());
         }
 
     }
