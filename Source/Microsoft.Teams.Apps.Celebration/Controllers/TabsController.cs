@@ -315,5 +315,35 @@ namespace Microsoft.Teams.Apps.Celebration
         {
             return await this.eventDataProvider.GetEventsByOwnerObjectIdAsync(userObjectId);
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        [HttpGet]
+        public async Task<ActionResult> GetByDate(DateTime date)
+        {
+            List<string> holidays = new List<string>();
+            List<User> users = new List<User>();
+            var document = await this.eventDataProvider.GetEventByDate(date);
+            foreach (var doc in document)
+            {
+                holidays.Add(doc.Title);
+            }
+            var userIds = await this.eventDataProvider.GetUsersByHolidays(holidays);
+            foreach (var userId in userIds)
+            {
+                var user = await this.userManagementHelper.GetUserByAadObjectIdAsync(userId);
+                users.Add(user);
+            }
+            var viewModel = new HolidayUserViewModel
+            {
+                Holidays = holidays,
+                Users = users
+            };
+            return View(viewModel);
+        }
+
     }
 }

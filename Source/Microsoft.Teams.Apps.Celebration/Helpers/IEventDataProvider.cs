@@ -142,5 +142,14 @@ namespace Microsoft.Teams.Apps.Celebration.Helpers
         /// <param name="eventId">Event Id</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation</returns>
         Task DeleteEventMessagesByEventIdAsync(string eventId);
+
+        /// <summary>
+        /// The GetEventByDate.
+        /// </summary>
+        /// <param name="date">The date<see cref="DateTime"/>.</param>
+        /// <returns>The <see cref="Task{IList{CelebrationEvent}}"/>.</returns>
+        Task<IEnumerable<CelebrationEvent>> GetEventByDate(DateTime date);
+
+        Task<IEnumerable<string>> GetUsersByHolidays(IEnumerable<string> holidays);
     }
 }

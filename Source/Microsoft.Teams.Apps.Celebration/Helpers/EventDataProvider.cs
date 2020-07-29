@@ -423,5 +423,37 @@ namespace Microsoft.Teams.Apps.Celebration.Helpers
             var ttl = expireAt - DateTimeOffset.UtcNow;
             return Math.Max((int)ttl.TotalSeconds, MinimumTimeToLiveInSeconds);
         }
+
+
+        /// <summary>
+        /// The GetEventByDate.
+        /// </summary>
+        /// <param name="date">The date<see cref="DateTime"/>.</param>
+        /// <returns>The <see cref="Task{IList{CelebrationEvent}}"/>.</returns>
+        public async Task<IEnumerable<CelebrationEvent>> GetEventByDate(DateTime date)
+        {
+            await this.EnsureInitializedAsync();
+            var documentQuery = this.documentClient.CreateDocumentQuery<CelebrationEvent>(this.eventsCollection.SelfLink)
+                .Where(x => x.Date == date)
+                .AsDocumentQuery();
+            return await documentQuery.ToListAsync();
+        }
+
+        public async Task<IEnumerable<string>> GetUsersByHolidays(IEnumerable<string> holidays)
+        {
+            ISet<string> userSet = new HashSet<string>();
+            await this.EnsureInitializedAsync();
+            foreach (var holiday in holidays)
+            {
+                var documentQuery = await this.documentClient.CreateDocumentQuery<CelebrationEvent>(this.eventsCollection.SelfLink)
+                    .Where(x => x.Title == holiday)
+                    .AsDocumentQuery().ToListAsync();
+                foreach (var doc in documentQuery)
+                {
+                    userSet.Add(doc.OwnerAadObjectId);
+                }
+            }
+            return userSet;
+        }
     }
 }

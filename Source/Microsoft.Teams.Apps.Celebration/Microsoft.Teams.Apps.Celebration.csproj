@@ -771,6 +771,7 @@
     <Compile Include="Models\CelebrationEvent.cs" />
     <Compile Include="Models\EventStatus.cs" />
     <Compile Include="Models\EventTypes.cs" />
+    <Compile Include="Models\HolidayUserViewModel.cs" />
     <Compile Include="Models\MessageType.cs" />
     <Compile Include="Models\EventMessage.cs" />
     <Compile Include="Models\EventNotificationData.cs" />
